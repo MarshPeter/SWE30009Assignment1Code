@@ -2,6 +2,7 @@ class Calculator:
     def __init__(self):
         self.possibilities = ['+', '-', '*', '/']
 
+    # returns true if the scenario accomplishes the test objective
     def calculateScenario(self, x, y):
         correctAnswer = self.calculate('-', '*', x, y)
         for symbolOne in self.possibilities:
@@ -11,7 +12,7 @@ class Calculator:
                 result = self.calculate(symbolOne, symbolTwo, x, y)
                 if result == correctAnswer:
                     print(f"CorrectAnswer = {correctAnswer}")
-                    print(result, symbolOne, symbolTwo)
+                    print(x, y, result, symbolOne, symbolTwo)
                     return False
 
         return True
@@ -20,41 +21,42 @@ class Calculator:
         firstResult = self.firstCalculation(s1, x, y)
         return self.secondCalculation(s2, firstResult)
 
-    def firstCalculation(self, s1, x, y):
-        if s1 == "+":
+    def firstCalculation(self, symbol, x, y):
+        if symbol == "+":
             return x + y
-        elif s1 == "-":
+        elif symbol == "-":
             return x - y
-        elif s1 == '*':
+        elif symbol == '*':
             return x * y
         else:
             return x / y
 
-    def secondCalculation(self, s2, x):
-        if s2 == "+":
+    def secondCalculation(self, symbol, x):
+        if symbol == "+":
             return x + 2
-        elif s2 == "-":
+        elif symbol == "-":
             return x - 2
-        elif s2 == '*':
+        elif symbol == '*':
             return x * 2
         else:
             return x / 2
 
     def calculateBadSolutionsInRange(self, absVal):
-        erroneous = []
+        erroneousValues = []
         for n in range(-absVal, absVal):
             if not self.calculateScenario(n, 1):
-                erroneous.append(n)
+                erroneousValues.append(n)
 
-        return erroneous
+        return erroneousValues
 
 
 print("Task 3 Start")
 task3Tester = Calculator()
+print("Testing (2, 1)")
 print(task3Tester.calculateScenario(2, 1))
 print("Task 3 end")
 
 print("task 4 start")
 task4Tester = Calculator()
 print(task4Tester.calculateBadSolutionsInRange(10000))
-print("task4End")
+print("task 4 End")
